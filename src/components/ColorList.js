@@ -22,10 +22,19 @@ const ColorList = ({ colors, updateColors }) => {
     e.preventDefault();
     axiosWithAuth().put(`/colors/${colorToEdit.id}`, colorToEdit)
     .then(res => {
-      const newColors = colors.filter(color => color.id !== res.data.id)
-      newColors.push(colorToEdit)
-      updateColors(newColors)
+      console.log('COLOR', res)
+      axiosWithAuth().get('/colors')
+      .then(res => {
+        const newColors = res.data
+        updateColors(newColors)
+      })
     })
+    
+    // .then(res => {
+    //   const newColors = colors.filter(color => color.id !== res.data.id)
+    //   newColors.push(colorToEdit)
+    //   updateColors(newColors)
+    // })
       // console.log('COLOR', res))
       // axiosWithAuth().get('/colors')
       // .then(res => {
